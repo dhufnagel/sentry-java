@@ -325,7 +325,7 @@ class GsonSerializerTest {
     fun `When deserializing a Session all the values should be set to the Session object`() {
         val jsonEvent = FileFromResources.invoke("session.json")
 
-        val actual = serializer.deserializeSession(StringReader(jsonEvent))
+        val actual = serializer.deserialize(StringReader(jsonEvent), Session::class.java)
 
         assertSessionData(actual)
     }
@@ -344,7 +344,7 @@ class GsonSerializerTest {
         val session = createSessionMockData()
         val jsonSession = serializeToString(session)
         // reversing, so we can assert values and not a json string
-        val expectedSession = serializer.deserializeSession(StringReader(jsonSession))
+        val expectedSession = serializer.deserialize(StringReader(jsonSession), Session::class.java)
 
         assertSessionData(expectedSession)
     }
@@ -473,7 +473,7 @@ class GsonSerializerTest {
                             }
                           }
                         }"""
-        val transaction = serializer.deserializeTransaction(StringReader(json))
+        val transaction = serializer.deserialize(StringReader(json), SentryTransaction::class.java)
         assertEquals("a-transaction", transaction.transaction)
         assertNotNull(transaction.startTimestamp)
         assertNotNull(transaction.timestamp)
@@ -499,7 +499,7 @@ class GsonSerializerTest {
     fun `deserializing user feedback`() {
         val jsonUserFeedback = "{\"event_id\":\"c2fb8fee2e2b49758bcb67cda0f713c7\"," +
             "\"name\":\"John\",\"email\":\"john@me.com\",\"comments\":\"comment\"}"
-        val actual = serializer.deserializeUserFeedback(StringReader(jsonUserFeedback))
+        val actual = serializer.deserialize(StringReader(jsonUserFeedback), UserFeedback::class.java)
 
         assertEquals(userFeedback.eventId, actual.eventId)
         assertEquals(userFeedback.name, actual.name)
@@ -531,7 +531,7 @@ class GsonSerializerTest {
             assertEquals(SentryItemType.Session, it.header.type)
             val reader =
                 InputStreamReader(ByteArrayInputStream(it.data), Charsets.UTF_8)
-            val actualSession = serializer.deserializeSession(reader)
+            val actualSession = serializer.deserialize(reader, Session::class.java)
             assertSessionData(actualSession)
         }
     }

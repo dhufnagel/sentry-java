@@ -101,44 +101,18 @@ public final class GsonSerializer implements ISerializer {
         .create();
   }
 
+  /**
+   * Deserialize an object of class given by {@code clazz} parameter from a stream Reader (JSON)
+   *
+   * @param reader the Reader
+   * @param clazz the type of object to deserialize into
+   * @return the deserialized object or null
+   */
   @Override
   public <T> T deserialize(Reader reader, Class<T> clazz) {
     Objects.requireNonNull(reader, "The Reader object is required.");
 
     return gson.fromJson(reader, clazz);
-  }
-
-  /**
-   * Deserialize UserFeedback from a stream Reader (JSON)
-   *
-   * @param reader the Reader
-   * @return the UserFeedback class or null
-   */
-  @Override
-  public UserFeedback deserializeUserFeedback(Reader reader) {
-    Objects.requireNonNull(reader, "The Reader object is required.");
-
-    return gson.fromJson(reader, UserFeedback.class);
-  }
-
-  /**
-   * Deserialize a Session from a stream Reader (JSON)
-   *
-   * @param reader the Reader
-   * @return the SentryEvent class or null
-   */
-  @Override
-  public @Nullable Session deserializeSession(final @NotNull Reader reader) {
-    Objects.requireNonNull(reader, "The Reader object is required.");
-
-    return gson.fromJson(reader, Session.class);
-  }
-
-  @Override
-  public SentryTransaction deserializeTransaction(Reader reader) {
-    Objects.requireNonNull(reader, "The Reader object is required.");
-
-    return gson.fromJson(reader, SentryTransaction.class);
   }
 
   /**
