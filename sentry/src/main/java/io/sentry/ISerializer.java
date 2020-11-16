@@ -7,7 +7,7 @@ import java.io.Writer;
 import java.util.Map;
 
 public interface ISerializer {
-  SentryEvent deserializeEvent(Reader reader);
+  <T> T deserialize(Reader reader, Class<T> clazz);
 
   UserFeedback deserializeUserFeedback(Reader reader);
 

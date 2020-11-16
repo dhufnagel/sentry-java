@@ -101,17 +101,11 @@ public final class GsonSerializer implements ISerializer {
         .create();
   }
 
-  /**
-   * Deserialize a SentryEvent from a stream Reader (JSON)
-   *
-   * @param reader the Reader
-   * @return the SentryEvent class or null
-   */
   @Override
-  public @Nullable SentryEvent deserializeEvent(final @NotNull Reader reader) {
+  public <T> T deserialize(Reader reader, Class<T> clazz) {
     Objects.requireNonNull(reader, "The Reader object is required.");
 
-    return gson.fromJson(reader, SentryEvent.class);
+    return gson.fromJson(reader, clazz);
   }
 
   /**

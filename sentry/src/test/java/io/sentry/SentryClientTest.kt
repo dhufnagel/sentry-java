@@ -796,7 +796,7 @@ class SentryClientTest {
 
     private fun getEventFromData(data: ByteArray): SentryEvent {
         val inputStream = InputStreamReader(ByteArrayInputStream(data))
-        return fixture.sentryOptions.serializer.deserializeEvent(inputStream)
+        return fixture.sentryOptions.serializer.deserialize(inputStream, SentryEvent::class.java)
     }
 
     private fun getTransactionFromData(data: ByteArray): SentryTransaction {
