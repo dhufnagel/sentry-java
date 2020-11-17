@@ -474,6 +474,7 @@ class GsonSerializerTest {
                           }
                         }"""
         val transaction = serializer.deserialize(StringReader(json), SentryTransaction::class.java)
+        assertNotNull(transaction)
         assertEquals("a-transaction", transaction.transaction)
         assertNotNull(transaction.startTimestamp)
         assertNotNull(transaction.timestamp)
@@ -500,7 +501,7 @@ class GsonSerializerTest {
         val jsonUserFeedback = "{\"event_id\":\"c2fb8fee2e2b49758bcb67cda0f713c7\"," +
             "\"name\":\"John\",\"email\":\"john@me.com\",\"comments\":\"comment\"}"
         val actual = serializer.deserialize(StringReader(jsonUserFeedback), UserFeedback::class.java)
-
+        assertNotNull(actual)
         assertEquals(userFeedback.eventId, actual.eventId)
         assertEquals(userFeedback.name, actual.name)
         assertEquals(userFeedback.email, actual.email)
