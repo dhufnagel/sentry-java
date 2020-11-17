@@ -3,6 +3,7 @@
 * Increase max cached events to 30 (#1029)
 * Normalize DSN URI (#1030)
 * feat: Performance monitoring (#971)
+* ref: Refactor JSON deserialization (#1047)
 
 # 3.1.2
 

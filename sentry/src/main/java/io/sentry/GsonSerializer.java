@@ -109,8 +109,9 @@ public final class GsonSerializer implements ISerializer {
    * @return the deserialized object or null
    */
   @Override
-  public <T> T deserialize(Reader reader, Class<T> clazz) {
+  public <T> @Nullable T deserialize(final @NotNull Reader reader, final @NotNull Class<T> clazz) {
     Objects.requireNonNull(reader, "The Reader object is required.");
+    Objects.requireNonNull(clazz, "The Class type is required.");
 
     return gson.fromJson(reader, clazz);
   }
